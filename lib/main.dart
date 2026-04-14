@@ -27,7 +27,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'FCM Activity',
       theme: ThemeData(colorSchemeSeed: Colors.deepPurple),
-      home: Placeholder(),
+      home: Scaffold(
+        body: Center(
+          child: Text("Firebase app running "),
+        ),
+      ),
     );
   }
 }
