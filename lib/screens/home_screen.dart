@@ -28,12 +28,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _loadToken() async {
-    final token =await _fcmService.getToken();
+  try {
+    final token = await _fcmService.getToken();
     setState(() {
-      tokenText = token ?? 'No token';
+      tokenText = token ?? 'No token returned';
     });
     debugPrint('FCM token: $token');
+  } catch (e) {
+    setState(() {
+      tokenText = 'Token error: check network/emulator';
+    });
+    debugPrint('Token fetch failed: $e');
   }
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
