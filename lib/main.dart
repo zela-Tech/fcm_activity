@@ -1,3 +1,4 @@
+import 'package:fcm_activity/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -27,11 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'FCM Activity',
       theme: ThemeData(colorSchemeSeed: Colors.deepPurple),
-      home: Scaffold(
-        body: Center(
-          child: Text("Firebase app running "),
-        ),
-      ),
+      home: HomePage()
     );
   }
 }
