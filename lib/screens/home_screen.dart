@@ -13,6 +13,7 @@ class _HomePageState extends State<HomePage> {
   final FCMService _fcmService = FCMService();
   String statusText = 'Waiting for a cloud message';
   String imagePath = 'assets/images/default.png';
+  String tokenText = 'Fetching token';
 
   @override
   void initState() {
@@ -23,13 +24,32 @@ class _HomePageState extends State<HomePage> {
         imagePath = 'assets/images/${message.data['asset'] ?? 'default'}.png';
       });
     });
+    _loadToken();
   }
-  
+
+  void _loadToken() async {
+    final token =await _fcmService.getToken();
+    setState(() {
+      tokenText = token ?? 'No token';
+    });
+    debugPrint('FCM token: $token');
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('FCM Demo')),
       body: Center(
-        child: Text(statusText),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(statusText),
+            const SizedBox(height: 20),
+            Image.asset(imagePath, height: 150),
+            const SizedBox(height: 20),
+            Text(tokenText, style: const TextStyle(fontSize: 10),
+            ),
+          ],
+        ),
       ),
     );
   }
